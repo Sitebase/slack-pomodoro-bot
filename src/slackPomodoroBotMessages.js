@@ -1,12 +1,23 @@
 const Message = require('lib/message');
 const env = require('env.json');
 
-const mention = (data) => {
-    const names = [];
+const url_verification = (data) => {
+    if (data.type !== 'url_verification')
+        return;
 
-    data.words.forEach(function(w) {
+    return data;
+}
+
+const mention = (data) => {
+    if (data.type !== 'message.channels')
+        return;
+
+    const names = [];
+    const event = data.event;
+
+    event.words.forEach(function(w) {
         if (/^@/.test(w))
-            names.push(w);
+            names.push(w.replace(/^@/, ''));
     });
 
     if (names.length < 1)
@@ -27,8 +38,12 @@ const mention = (data) => {
         });
 };
 
-const processOptions = { token: env.SLACK_VERIFICATION_TOKEN || 'gIkuvaNzQIHg97ATvDxqgjtO' };
-const messageHandler = Message(mention);
+const processOptions = {
+    token: env.SLACK_VERIFICATION_TOKEN || 'gIkuvaNzQIHg97ATvDxqgjtO',
+    types: [ 'url_verification', 'message.channels' ]
+};
+const messageHandler = Message(url_verification)
+    .message(mention);
 
 exports.handler = function(event, context, callback) {
     Promise.resolve()
