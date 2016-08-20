@@ -1,12 +1,13 @@
 require('isomorphic-fetch');
 const qs = require('querystring');
 const store = require('lib/dynamo');
+const env = require('env.json');
 const db = store('tokens', {
     primaryKey: 'owner'
 });
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const CLIENT_ID = env.CLIENT_ID;
+const CLIENT_SECRET = env.CLIENT_SECRET;
 
 /**
  * Set required parameters and redirect to Slack auth endpoint.

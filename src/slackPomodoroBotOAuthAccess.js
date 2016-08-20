@@ -1,9 +1,6 @@
 const oauth = require('./lib/oauth');
 
 exports.handler = function(event, context, callback) {
-    process.env.CLIENT_ID = event.stage.CLIENT_ID;
-    process.env.CLIENT_SECRET = event.stage.CLIENT_SECRET;
-
     const code = event.code;
 
     if (!code) {
