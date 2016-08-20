@@ -49,7 +49,7 @@ Store.prototype.list = function(key) {
         }
     };
 
-    return call(this.db, 'query')(params);
+    return call(this.db, 'query')(params)
         .then(data => data.Items);
 }
 
