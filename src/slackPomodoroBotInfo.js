@@ -1,5 +1,6 @@
 const qs = require('querystring');
 const info = require('./package.json');
+const env = require('./env.json');
 
 exports.handler = function(event, context, callback) {
 
@@ -18,7 +19,6 @@ exports.handler = function(event, context, callback) {
         version: info.version,
         description: info.description,
         authorize: `https://slack.com/oauth/authorize?${query}`,
-        event: event,
-        context: context
+        env: env
     });
 };
