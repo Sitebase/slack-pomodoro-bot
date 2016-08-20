@@ -18,7 +18,9 @@ module.exports.GET = function slackSslCheck(req, resp) {
 module.exports.POST = function receiveCommand(req, resp) {
     const data = Command.process(req.body, processOptions);
 
-    commandHandler.exec(data, data.words[0]).then(result => {
+    const command = data.words.length ? data.words[0] : 'status';
+
+    commandHandler.exec(data, command).then(result => {
         resp.json(result);
     }).catch(err => {
         console.error('ERROR:', err);

@@ -74,7 +74,7 @@ Command.process = function(data, options) {
     Command.validate(data, options);
 
     return Object.assign({}, data, {
-        words: (data.text || '').split(' ')
+        words: (data.text || '').split(/\s+/).filter(s => s != '')
     });
 }
 
