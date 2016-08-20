@@ -28,8 +28,7 @@
   "dependencies": {
     "@slack/client": "^3.5.4",
     "isomorphic-fetch": "^2.2.1",
-    "lodash": "^4.15.0",
-    "lowdb": "^0.13.1"
+    "lodash": "^4.15.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.5.2",
