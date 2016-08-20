@@ -1,22 +1,13 @@
 module.exports = function(command, data) {
     return {
-        text: 'You\'re not connected to Pomodoro bot yet.',
         attachments: [
             {
-                text: 'Please sign in',
-                fallback: 'https://pomodoro.ambassify.com/oauth/authorize',
-                callback_id: 'connect',
+                fallback: 'Please sign in at https://pomodoro.ambassify.com/oauth/authorize',
                 color: '#3AA3E3',
-                attachment_type: 'default',
-                actions: [
-                    {
-                        name: 'connect',
-                        text: 'Sign in',
-                        type: 'button',
-                        value: 'connect',
-                        style: 'primary'
-                    }
-                ]
+                pretext: 'You\'re not connected to Pomodoro yet, please use the link below to connect your account.',
+                title: 'Sign in to Pomodoro',
+                title_link: 'https://pomodoro.ambassify.com/oauth/authorize',
+                text: "Pomodoro by Ambassify provides an awesome way to maximize your productivity. Sign in here to connect your account.",
             }
         ]
     };

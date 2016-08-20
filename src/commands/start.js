@@ -1,12 +1,19 @@
 const Slack = require('lib/slack');
-const store = require('lib/store');
+const store = require('lib/dynamo');
 const connect = require('commands/connect');
+
+const db = store('pomodoros', {
+    primaryKey: 'user'
+});
+const tokens = store('tokens', {
+    primaryKey: 'owner'
+});
 
 module.exports = function(command, data) {
     const team = data.team_id;
     const user = data.user_id;
 
-    return store('tokens').get(user)
+    return tokens.get(user)
         .then(token => {
             if (!token)
                 return connect('connect', data);
@@ -14,7 +21,7 @@ module.exports = function(command, data) {
             const api = Slack(token);
 
             return api.startPomodoro()
-                .then(() => store('pomodoros').set([ team, user ], true))
+                .then(() => db.set([ team, user ], { busy: true }))
                 .then(() => ({
                     text: 'I have started a new pomodoro for you'
                 }));
