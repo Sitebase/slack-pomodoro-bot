@@ -6,6 +6,6 @@ module.exports = function(command, data) {
 
     return store('pomodoros').list(team)
         .then(all => ({
-            answer: 'Here is the status of your colleagues: ' + JSON.stringify(all)
+            text: 'Here is the status of your colleagues: ' + JSON.stringify(all)
         }));
 }

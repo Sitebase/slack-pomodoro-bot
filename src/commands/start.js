@@ -16,7 +16,7 @@ module.exports = function(command, data) {
             return api.startPomodoro()
                 .then(() => store('pomodoros').set([ team, user ], true))
                 .then(() => ({
-                    answer: 'I have started a new pomodoro for you'
+                    text: 'I have started a new pomodoro for you'
                 }));
         });
 }

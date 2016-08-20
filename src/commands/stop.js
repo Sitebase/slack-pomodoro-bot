@@ -8,7 +8,7 @@ module.exports = function(command, data) {
     return store('pomodoros').list([ team, user ]).then(record => {
         if (!record) {
             return {
-                answer: 'No pomodoro runnning'
+                text: 'No pomodoro runnning'
             };
         }
         return store('tokens').get(user).then(token => {
@@ -20,7 +20,7 @@ module.exports = function(command, data) {
             return api.stopPomodoro()
                 .then(() => store('pomodoros').delete([ team, user ]))
                 .then(() => ({
-                    answer: 'I have stopped your pomodoro'
+                    text: 'I have stopped your pomodoro'
                 }));
         });
     });

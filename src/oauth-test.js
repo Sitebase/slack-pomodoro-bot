@@ -4,35 +4,12 @@ const bodyParser = require('body-parser');
 const server = express();
 const oauth = require('lib/oauth');
 
-const Command = require('lib/command');
-const start = require('commands/start');
-const stop = require('commands/stop');
-const status = require('commands/status');
-const slackToken = process.env.token || 'gIkuvaNzQIHg97ATvDxqgjtO';
-const processOptions = { token: slackToken };
+const commands = require('controllers/commands');
 
 server.use(bodyParser.urlencoded({ extended: true }));
 
-server.get('/commands', function(req, resp) {
-    resp.end('OK');
-});
-
-server.post('/commands', function(req, resp) {
-    const data = Command.process(req.body, processOptions);
-
-    const handler = Command('start', () => Promise.resolve({
-        text: "It's 80 degrees right now.",
-        attachments: [
-            {
-                text: "Partly cloudy today and tomorrow"
-            }
-        ]
-    }));
-
-    handler.exec(data, data.words[0]).then(result => {
-        resp.json(result);
-    });
-});
+server.get('/commands', commands.GET);
+server.post('/commands', commands.POST);
 
 server.get('/oauth/authorize', function(req, resp) {
     oauth.startAuth(resp, {
