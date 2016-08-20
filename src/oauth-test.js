@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
 const server = express();
 const oauth = require('lib/oauth');
 
@@ -10,10 +11,12 @@ const status = require('commands/status');
 const slackToken = process.env.token || 'gIkuvaNzQIHg97ATvDxqgjtO';
 const processOptions = { token: slackToken };
 
-server.post('/commands', function(req, resp) {
+server.use(bodyParser.urlencoded({ extended: true }));
 
-    const data = Command.process(post);
-    const handler = Command('start', () => ({
+server.post('/commands', function(req, resp) {
+    const data = Command.process(req.body, processOptions);
+
+    const handler = Command('start', () => Promise.resolve({
         text: "It's 80 degrees right now.",
         attachments: [
             {
@@ -23,7 +26,7 @@ server.post('/commands', function(req, resp) {
     }));
 
     handler.exec(data, data.words[0]).then(result => {
-        res.json(result);
+        resp.json(result);
     });
 });
 
