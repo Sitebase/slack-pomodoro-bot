@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Slack = require('lib/slack');
 const store = require('lib/dynamo');
 const connect = require('commands/connect');
@@ -13,13 +14,14 @@ module.exports = function(command, data) {
     const team = data.team_id;
     const user = data.user_id;
 
-    return tokens.get(user)
+    return tokens.get([ team, user ])
         .then(token => {
+            token = _.get(token, 'access_token');
+
             if (!token)
                 return connect('connect', data);
 
             const api = Slack(token);
-
             return api.startPomodoro()
                 .then(() => db.set([ team, user ], { busy: true }))
                 .then(() => ({

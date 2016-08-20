@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Slack = require('lib/slack');
 const store = require('lib/dynamo');
 const db = store('pomodoros', {
@@ -6,18 +7,21 @@ const db = store('pomodoros', {
 const tokens = store('tokens', {
     primaryKey: 'owner'
 });
+const connect = require('commands/connect');
 
 module.exports = function(command, data) {
     const team = data.team_id;
     const user = data.user_id;
 
-    return db.list([ team, user ]).then(record => {
+    return db.get([ team, user ]).then(record => {
         if (!record) {
             return {
                 text: 'No pomodoro runnning'
             };
         }
-        return tokens.get(user).then(token => {
+        return tokens.get([ team, user ]).then(token => {
+            token = _.get(token, 'access_token');
+
             if (!token)
                 return connect('connect', data);
 
