@@ -21,6 +21,7 @@ module.exports.POST = function receiveCommand(req, resp) {
     commandHandler.exec(data, data.words[0]).then(result => {
         resp.json(result);
     }).catch(err => {
+        console.error('ERROR:', err);
         resp.end('Somthing went wrong :confused:');
     });
 }
