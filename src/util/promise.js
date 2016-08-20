@@ -5,7 +5,7 @@ module.exports.promisify = function promisify(f, ctx) {
         const args = [], args_i = arguments.length; while(args_i--) args[args_i] = arguments[args_i];
 
         return new Promise((resolve, reject) => {
-            args.push((err, result) => reject(err) : resolve(result));
+            args.push((err, result) => err ? reject(err) : resolve(result));
             f.apply(ctx, args);
         });
     };
