@@ -16,7 +16,7 @@ if (me.busy) {
     %>Some of your teammates are currently in Pomodoro mode:
 <% for(var i in colleagues) {
         var colleague = colleagues[i];
-        %><@<%= colleague.id %>|<%= colleague.user_name %>><%
+        %><@<%= colleague.id %>|<%= colleague.user_name %>> <%
     }
 } %>`
 )
@@ -58,7 +58,7 @@ module.exports = function(command, data) {
     return db.list(team).then(all => {
         const meKey = `${team}.${user}`;
 
-        const me = _.find(all, v => v.user == meKey);
+        const me = _.find(all, v => v.user == meKey) || {};
         const busy = me.busy;
 
         const colleagues = _(all)
