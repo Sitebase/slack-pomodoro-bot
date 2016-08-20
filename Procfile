@@ -1,1 +1,1 @@
-web: NODE_PATH="src" node src/oauth-test.js
+web: NODE_PATH="src" node --harmony src/oauth-test.js
