@@ -2,7 +2,11 @@ const WebClient = require('@slack/client').WebClient;
 const promisify = require('util/promise').promisify;
 
 const call = (f, ctx) => (...args) => {
-    return promisify(f, ctx)(...args).then(res => {
+    const args = [], args_i = arguments.length; while(args_i--) args[args_i] = arguments[args_i];
+    const promise = promisify(f, ctx);
+
+    return promise.apply(args)
+    .then(res => {
         if (!res.ok)
             throw new Error(res.error || res);
 
