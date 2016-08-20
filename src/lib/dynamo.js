@@ -24,7 +24,7 @@ const call = (obj, method) => (...args) => {
  */
 const Store = function(table, options) {
     if (this.constructor !== Store)
-        return new Store(table);
+        return new Store(table, options);
 
     options = options || {};
 
