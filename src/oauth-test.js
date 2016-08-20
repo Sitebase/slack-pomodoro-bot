@@ -47,7 +47,12 @@ server.get('/oauth/access', function(req, resp) {
         })
         .then((data) => {
             resp.end('<script>window.close();</script>');
-        });
+        })
+        .catch(err => {
+            resp.statusCode = 500;
+            resp.end('An error occurred');
+            return;
+        })
 });
 
 server.listen(process.env.PORT || 3000);
