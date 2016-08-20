@@ -18,8 +18,10 @@ const exchangeCode = function(code) {
 }
 
 const saveToken = function(team, token) {
-    dynamo.put({
-        TableName: process.env.AUTH_TABLE,
-        Item: token
+    return new Promise(resolve => {
+        dynamo.put({
+            TableName: process.env.AUTH_TABLE,
+            Item: token
+        }, resolve);
     });
 }
