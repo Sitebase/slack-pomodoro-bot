@@ -3,3 +3,5 @@ deployment:
     branch: master
     commands:
       - ./build.sh slackPomodoroBotInfo
+      - ./build.sh slackPomodoroBotCommands
+      - ./build.sh slackPomodoroBotMessages
