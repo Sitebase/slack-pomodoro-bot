@@ -40,7 +40,7 @@ const Store = function(table, options) {
  */
 Store.prototype.list = function(key) {
     const params = {
-        TableName: table,
+        TableName: this.table,
         KeyConditions: {
             [this.primaryKey]: {
                 ComparisionOperator: 'BEGINS_WITH',
