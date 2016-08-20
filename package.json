@@ -1,8 +1,7 @@
 {
   "name": "pomodorobot",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A slack bot for pomodoros",
-  "main": "src/index.js",
   "engines": {
       "node": "4.3.2"
   },
