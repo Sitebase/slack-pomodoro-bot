@@ -70,7 +70,7 @@ Event.process = function(data, options) {
     const supportedTypes = options.types;
 
     if (!supportedTypes || supportedTypes.indexOf(data.type) < 0)
-        throw new Error('Not handling this event');
+        throw new Error('Not handling this event of type ' + data.type);
 
     const event = data && data.event;
 
