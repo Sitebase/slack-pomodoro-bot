@@ -2,6 +2,7 @@ const oauth = require('lib/oauth');
 
 exports.AUTHORIZE = function(req, resp) {
     oauth.startAuth(resp, {
+        scope: req.query.scope,
         team: req.query.team
     });
 };
