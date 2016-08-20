@@ -1,21 +1,11 @@
 const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.AWS_REGION || 'eu-central-1' });
 const dynamo = new AWS.DynamoDB.DocumentClient();
+const promisify = require('util/promise').promisify;
 const _ = require('lodash');
 const SEPARATOR = '.';
 
-const call = (obj, method) => (...args) => {
-    return new Promise((resolve, reject) =>  {
-        obj[method](...args, (err, data) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-
-            resolve(data);
-        });
-    });
-};
+const call = (obj, method) => promisify(obj[method], obj);
 
 /**
  * Store client

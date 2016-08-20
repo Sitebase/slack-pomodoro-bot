@@ -6,3 +6,4 @@ deployment:
       - ./build.sh slackPomodoroBotCommands
       - ./build.sh slackPomodoroBotMessages
       - ./build.sh slackPomodoroBotActions
+      - ./build.sh slackPomodoroBotOAuthAccess
