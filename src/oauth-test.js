@@ -13,6 +13,10 @@ const processOptions = { token: slackToken };
 
 server.use(bodyParser.urlencoded({ extended: true }));
 
+server.get('/commands', function(req, resp) {
+    resp.end('OK');
+});
+
 server.post('/commands', function(req, resp) {
     const data = Command.process(req.body, processOptions);
 
