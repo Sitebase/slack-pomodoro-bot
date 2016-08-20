@@ -2,6 +2,7 @@ const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.AWS_REGION || 'eu-central-1' });
 const dynamo = new AWS.DynamoDB.DocumentClient();
 const _ = require('lodash');
+const SEPARATOR = '.';
 
 const call = (obj, method) => (...args) => {
     return new Promise((resolve, reject) =>  {
@@ -65,7 +66,7 @@ Store.prototype.list = function(key) {
  *
  */
 Store.prototype.get = function(key) {
-    key = _.isArray(key) ? key.join('.') : key;
+    key = _.isArray(key) ? key.join(SEPARATOR) : key;
 
     const params = {
         TableName: this.table,
@@ -85,7 +86,7 @@ Store.prototype.get = function(key) {
  *
  */
 Store.prototype.set = function(key, value) {
-    key = _.isArray(key) ? key.join('::') : key;
+    key = _.isArray(key) ? key.join(SEPARATOR) : key;
 
     const params = {
         TableName: this.table,
@@ -104,7 +105,7 @@ Store.prototype.set = function(key, value) {
  *
  */
 Store.prototype.delete = function(key) {
-    key = _.isArray(key) ? key.join('::') : key;
+    key = _.isArray(key) ? key.join(SEPARATOR) : key;
 
     const params = {
         TableName: this.table,
