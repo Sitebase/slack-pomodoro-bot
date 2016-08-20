@@ -11,14 +11,16 @@ const commandHandler = Command('start', start)
     .command('status', status);
 
 exports.handler = function(event, context, callback) {
-    const data = Command.process(event, processOptions);
-
-    const command = data.words.length ? data.words[0] : 'status';
-
-    commandHandler.exec(data, command).then(result => {
-        callback(null, result);
-    }).catch(err => {
-        console.error('ERROR:', err);
-        callback(new Error('Something went wrong :confused:'));
-    });
+    Promise.resolve()
+        .then(() => command.process(event, processOptions))
+        .then(data => {
+            const command = data.words.length ? data.words[0] : 'status';
+            return commandHandler.exec(data, command);
+        })
+        .then(result => {
+            callback(null, result);
+        }).catch(err => {
+            console.error('ERROR:', err);
+            callback(new Error('Something went wrong :confused:'));
+        });
 };
