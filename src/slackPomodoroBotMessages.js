@@ -47,6 +47,7 @@ const eventHandler = Event(url_verification)
     .event(mention);
 
 exports.handler = function(event, context, callback) {
+    console.log('event', event);
     Promise.resolve()
         .then(() => Event.process(event))
         .then(data => eventHandler.exec(data))
