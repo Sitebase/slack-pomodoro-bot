@@ -46,15 +46,16 @@ const Store = function(table, options) {
 Store.prototype.list = function(key) {
     const params = {
         TableName: this.table,
-        KeyConditions: {
-            [this.primaryKey]: {
-                ComparisionOperator: 'BEGINS_WITH',
-                AttributeValueList: [ key ]
-            }
+        FilterExpression: 'begins_with(#key, :value)',
+        ExpressionAttributeNames:{
+            '#key': this.primaryKey
+        },
+        ExpressionAttributeValues: {
+            ':value': key
         }
     };
 
-    return call(this.db, 'query')(params)
+    return call(this.db, 'scan')(params)
         .then(data => data.Items);
 }
 
