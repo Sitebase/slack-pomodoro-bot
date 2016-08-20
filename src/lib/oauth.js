@@ -19,7 +19,7 @@ const startAuth = function(resp, options) {
     const query = qs.stringify({
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
-        scope: 'identity.basic',
+        scope: options.scope || 'identity.basic',
         team: options.team
     });
     resp.writeHead(302, {
@@ -40,12 +40,17 @@ const exchangeCode = function(code) {
         code: code
     });
 
+    console.log(query);
+
     const req = new Request(`https://slack.com/api/oauth.access?${query}`);
     return fetch(req)
         .then(resp => resp.json())
         .then(json => {
+            console.log(json);
             if (!json.ok)
                 throw new Error(json.error);
+
+            console.log('body ok');
 
             return json;
         })
