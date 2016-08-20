@@ -39,7 +39,9 @@ Command.prototype.exec = function(data, command) {
         if (Command.debug)
             console.log(data.command + ' ' + data.text);
 
-        return Promise.resolve(this._action(command, data));
+        return new Promise(resolve => {
+            resolve(this._action(command, data));
+        });
     }
 
     if (!this._next)
