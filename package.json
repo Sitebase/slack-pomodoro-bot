@@ -1,0 +1,29 @@
+{
+  "name": "pomodorobot",
+  "version": "0.1.0",
+  "description": "A slack bot for pomodoros",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ambassify/slack-pomodoro-bot.git"
+  },
+  "keywords": [
+    "pomodoro",
+    "slack"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ambassify/slack-pomodoro-bot/issues"
+  },
+  "homepage": "https://github.com/ambassify/slack-pomodoro-bot#readme",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
