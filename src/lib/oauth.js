@@ -1,6 +1,9 @@
 require('isomorphic-fetch');
 const qs = require('querystring');
-const dynamo = require('lib/dynamo');
+const store = require('lib/dynamo');
+const db = store('tokens', {
+    primaryKey: 'owner'
+});
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -55,21 +58,7 @@ const exchangeCode = function(code) {
  * @param token Object The token object to store.
  */
 const saveToken = function(owner_id, token) {
-    return new Promise((resolve, reject) => {
-        dynamo.put({
-            TableName: process.env.AUTH_TABLE,
-            Item: Object.assign({
-                owner: owner_id
-            }, token)
-        }, function(err, data) {
-            if (err) {
-                reject(err);
-                return;
-            }
-
-            resolve(data);
-        });
-    });
+    return db.set(owner_id, token);
 }
 
 module.exports = {

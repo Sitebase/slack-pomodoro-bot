@@ -90,7 +90,9 @@ Store.prototype.set = function(key, value) {
 
     const params = {
         TableName: this.table,
-        Item: value
+        Item: Object.assign({
+            [this.primaryKey]: key
+        }, value)
     };
 
     return call(this.db, 'put')(params);

@@ -35,7 +35,7 @@ server.get('/oauth/access', function(req, resp) {
             resp.end('<script>window.close();</script>');
         })
         .catch(err => {
-            console.log('ERROR:', err);
+            console.error('ERROR:', err);
             resp.statusCode = 500;
             resp.end('An error occurred');
             return;
