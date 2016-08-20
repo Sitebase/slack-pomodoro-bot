@@ -27,18 +27,29 @@ const exchangeCode = function(code) {
     const req = new Request(`https://slack.com/api/oauth.access?${query}`);
     return fetch(req)
         .then(resp => resp.json())
+        .then(json => {
+            if (!json.ok)
+                throw new Error(json.error);
+
+            return json;
+        })
 }
 
 const saveToken = function(owner_id, token) {
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         dynamo.put({
             TableName: process.env.AUTH_TABLE,
             Item: Object.assign({
                 owner: owner_id
             }, token)
         }, function(err, data) {
-            console.log('asws', err, data);
+            if (err) {
+                reject(err);
+                return;
+            }
+
+            resolve(data);
         });
     });
 }
