@@ -28,7 +28,9 @@ server.post('/commands', function(req, resp) {
 });
 
 server.get('/oauth/authorize', function(req, resp) {
-    oauth.startAuth(resp);
+    oauth.startAuth(resp, {
+        team: req.query.team
+    });
 });
 
 server.get('/oauth/access', function(req, resp) {
