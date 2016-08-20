@@ -3,20 +3,27 @@ const express = require('express');
 const server = express();
 const oauth = require('lib/oauth');
 
+server.get('/oauth/authorize', function(req, resp) {
+    oauth.startAuth(resp);
+});
+
 server.get('/oauth/access', function(req, resp) {
     const code = req.query.code;
 
     if (!code) {
-        req.statusCode = 500;
-        req.end();
+        resp.statusCode = 500;
+        resp.end();
         return;
     }
 
     oauth.exchangeCode(code)
         .then(function(token) {
-            return oauth.saveToken(token.team_id, token);
+            const owner = token.team_id || (token.team.id + '.' + token.user.id);
+            return oauth.saveToken(owner, token);
         })
-        .then(() => {
-            req.end('Done');
+        .then((data) => {
+            resp.end('<script>window.close();</script>');
         });
 });
+
+server.listen(process.env.PORT || 3000);
