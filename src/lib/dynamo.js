@@ -65,7 +65,7 @@ Store.prototype.list = function(key) {
  *
  */
 Store.prototype.get = function(key) {
-    key = _.isArray(key) ? key.join('::') : key;
+    key = _.isArray(key) ? key.join('.') : key;
 
     const params = {
         TableName: this.table,
