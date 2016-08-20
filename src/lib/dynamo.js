@@ -4,7 +4,6 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 const _ = require('lodash');
 
 const call = (obj, method) => (...args) => {
-    console.log(...args);
     return new Promise((resolve, reject) =>  {
         obj[method](...args, (err, data) => {
             if (err) {
@@ -33,7 +32,7 @@ const Store = function(table, options) {
     this.primaryKey = options.primaryKey;
 
     if (!this.primaryKey) {
-        console.trace('You broke it');
+        console.trace('You broke it, please supply primaryKey');
     }
 }
 
