@@ -9,7 +9,7 @@ exports.handler = function(event, context, callback) {
     const query = qs.stringify({
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
-        scope: 'identity.basic',
+        scope: event.scope || 'identity.basic',
         team: event.team || 'no-team'
     });
 
@@ -17,6 +17,8 @@ exports.handler = function(event, context, callback) {
         name: info.name,
         version: info.version,
         description: info.description,
-        authorize: `https://slack.com/oauth/authorize?${query}`
+        authorize: `https://slack.com/oauth/authorize?${query}`,
+        event: event,
+        context: context
     });
 };
