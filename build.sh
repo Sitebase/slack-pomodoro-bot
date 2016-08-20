@@ -13,6 +13,7 @@ rm -rf dist/*
 cp package.json src
 mkdir -p dist/$1/
 cp -r src/* dist/$1/
+cp -r node_modules dist/$1/
 cp package.json dist/$1/
 mv dist/$1/$1.js dist/$1/index.js
 cd dist/$1/
