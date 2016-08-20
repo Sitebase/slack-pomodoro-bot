@@ -19,7 +19,7 @@ const startAuth = function(resp, options) {
     const query = qs.stringify({
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
-        scope: 'identity.basic',
+        scope: 'identity.basic,dnd:write',
         team: options.team
     });
     resp.writeHead(302, {
