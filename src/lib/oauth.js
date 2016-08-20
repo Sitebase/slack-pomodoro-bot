@@ -40,12 +40,17 @@ const exchangeCode = function(code) {
         code: code
     });
 
+    console.log(query);
+
     const req = new Request(`https://slack.com/api/oauth.access?${query}`);
     return fetch(req)
         .then(resp => resp.json())
         .then(json => {
+            console.log(json);
             if (!json.ok)
                 throw new Error(json.error);
+
+            console.log('body ok');
 
             return json;
         })
