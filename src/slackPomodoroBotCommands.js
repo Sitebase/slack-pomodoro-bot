@@ -12,7 +12,7 @@ const commandHandler = Command('start', start)
 
 exports.handler = function(event, context, callback) {
     Promise.resolve()
-        .then(() => command.process(event, processOptions))
+        .then(() => Command.process(event, processOptions))
         .then(data => {
             const command = data.words.length ? data.words[0] : 'status';
             return commandHandler.exec(data, command);
