@@ -1,4 +1,4 @@
-const Message = require('lib/message');
+const Event = require('lib/event');
 const env = require('env.json');
 
 const url_verification = (data) => {
@@ -33,7 +33,8 @@ const mention = (data) => {
             if (busy.length < 1) return;
 
             return {
-                text: _.map(busy, v => '@' + v.user_name).join(', ') + ' are currenty doing a pomodoro';
+                text: _.map(busy, v => '@' + v.user_name).join(', ') +
+                    ' are currenty doing a pomodoro'
             };
         });
 };
@@ -42,12 +43,12 @@ const processOptions = {
     token: env.SLACK_VERIFICATION_TOKEN || 'gIkuvaNzQIHg97ATvDxqgjtO',
     types: [ 'url_verification', 'message.channels' ]
 };
-const messageHandler = Message(url_verification)
-    .message(mention);
+const eventHandler = Event(url_verification)
+    .event(mention);
 
 exports.handler = function(event, context, callback) {
     Promise.resolve()
-        .then(() => Message.process(event))
-        .then(data => messagHandler.exec(data))
+        .then(() => Event.process(event))
+        .then(data => eventHandler.exec(data))
         .catch(err => callback(err));
 };
