@@ -3,6 +3,30 @@ const express = require('express');
 const server = express();
 const oauth = require('lib/oauth');
 
+const Command = require('lib/command');
+const start = require('commands/start');
+const stop = require('commands/stop');
+const status = require('commands/status');
+const slackToken = process.env.token || 'gIkuvaNzQIHg97ATvDxqgjtO';
+const processOptions = { token: slackToken };
+
+server.post('/commands', function(req, resp) {
+
+    const data = Command.process(post);
+    const handler = Command('start', () => ({
+        text: "It's 80 degrees right now.",
+        attachments: [
+            {
+                text: "Partly cloudy today and tomorrow"
+            }
+        ]
+    }));
+
+    handler.exec(data, data.words[0]).then(result => {
+        res.json(result);
+    });
+});
+
 server.get('/oauth/authorize', function(req, resp) {
     oauth.startAuth(resp);
 });
