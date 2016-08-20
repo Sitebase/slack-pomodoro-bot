@@ -1,8 +1,8 @@
 const qs = require('querystring');
 const info = require('./package.json');
 
-const CLIENT_ID = process.env.CLIENT_ID || 'not-found';
-const CLIENT_SECRET = process.env.CLIENT_SECRET || 'not-found';
+const CLIENT_ID = event.stage.CLIENT_ID || 'not-found';
+const CLIENT_SECRET = event.stage.CLIENT_SECRET || 'not-found';
 
 exports.handler = function(event, context, callback) {
 
