@@ -9,8 +9,8 @@ exports.handler = function(event, context, callback) {
     const query = qs.stringify({
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
-        scope: event.scope || 'identity.basic',
-        team: event.team || 'no-team'
+        scope: event.params.querystring.scope || 'identity.basic',
+        team: event.params.querystring.team || 'no-team'
     });
 
     callback(null, {
