@@ -27,7 +27,7 @@ const Store = function(table, options) {
 
     options = options || {};
 
-    this.table = table;
+    this.table = 'pomodoro.' + table;
     this.db = options.db || dynamo;
     this.primaryKey = options.primaryKey
 }
