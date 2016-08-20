@@ -2,4 +2,4 @@ deployment:
   production:
     branch: master
     commands:
-      - ./build.sh
+      - ./build.sh slackPomodoroBotInfo

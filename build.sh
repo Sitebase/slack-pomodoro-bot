@@ -12,10 +12,11 @@ rm -rf dist/*
 # build
 cp package.json src
 mkdir -p dist/$1/
-cp src/* dist/$1/
-# zip -r ../dist/$1.zip *
+cp -r src/* dist/$1/
+cp package.json dist/$1/
+mv dist/$1/$1.js dist/$1/index.js
+cd dist/$1/
+zip -r ../$1.zip *
+cd ../..
 
-# deploy
-# aws lambda create-function --region eu-central-1 --function-name LambdaFunctionOverHttps --zip-file fileb:///Users/wim/Code/bubobox/slack-pomodoro-bot/dist.zip --role arn:aws:iam::244654009431:role/service-role/slack-pomodoro-bot --handler LambdaFunctionOverHttps.handler --runtime nodejs4.3
-
-# aws lambda update-function-code --region eu-central-1 --function-name slackPomodoroBotInfo --zip-file fileb://dist.zip
+aws lambda update-function-code --region eu-central-1 --function-name $1 --zip-file fileb://dist/$1.zip
