@@ -30,7 +30,11 @@ const Store = function(table, options) {
 
     this.table = 'pomodoro.' + table;
     this.db = options.db || dynamo;
-    this.primaryKey = options.primaryKey
+    this.primaryKey = options.primaryKey;
+
+    if (!this.primaryKey) {
+        console.trace('You broke it');
+    }
 }
 
 /**

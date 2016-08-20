@@ -5,12 +5,15 @@ const connect = require('commands/connect');
 const db = store('pomodoros', {
     primaryKey: 'user'
 });
+const tokens = store('tokens', {
+    primaryKey: 'owner'
+});
 
 module.exports = function(command, data) {
     const team = data.team_id;
     const user = data.user_id;
 
-    return store('tokens').get(user)
+    return tokens.get(user)
         .then(token => {
             if (!token)
                 return connect('connect', data);
