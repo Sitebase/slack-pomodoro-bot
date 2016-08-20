@@ -5,6 +5,7 @@
 https://fburhm5u0j.execute-api.eu-central-1.amazonaws.com/test/info
 https://fburhm5u0j.execute-api.eu-central-1.amazonaws.com/test/messages
 https://fburhm5u0j.execute-api.eu-central-1.amazonaws.com/test/commands
+https://fburhm5u0j.execute-api.eu-central-1.amazonaws.com/test/actions
 ```
 
 ## Resources
