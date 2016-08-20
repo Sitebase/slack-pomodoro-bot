@@ -21,6 +21,36 @@ if (me.busy) {
 } %>`
 )
 
+const START_BUTTON = {
+    fallback: "Start a pomodoro by typing /pomo start",
+    callback_id: "pomo_actions",
+    attachment_type: "default",
+    actions: [
+        {
+            name: "start_pomodoro",
+            text: "Start Pomodoro",
+            type: "button",
+            value: "start_pomodoro",
+            style: "primary"
+        }
+    ]
+};
+
+const STOP_BUTTON = {
+    fallback: "Stop a pomodoro by typing /pomo stop",
+    callback_id: "pomo_actions",
+    attachment_type: "default",
+    actions: [
+        {
+            name: "stop_pomodoro",
+            text: "Stop Pomodoro",
+            type: "button",
+            value: "stop_pomodoro",
+            style: "danger"
+        }
+    ]
+};
+
 module.exports = function(command, data) {
     const team = data.team_id;
     const user = data.user_id;
@@ -42,20 +72,7 @@ module.exports = function(command, data) {
         return {
             text: message({ me, colleagues }),
             attachments: [
-                {
-                    fallback: "Start a pomodoro by typing /pomo start",
-                    callback_id: "pomo_actions",
-                    attachment_type: "default",
-                    actions: [
-                        {
-                            name: "start_pomodoro",
-                            text: "Start Pomodoro",
-                            type: "button",
-                            value: "start_pomodoro",
-                            style: "primary"
-                        }
-                    ]
-                }
+                busy ? STOP_BUTTON : START_BUTTON
             ]
         }
     });
