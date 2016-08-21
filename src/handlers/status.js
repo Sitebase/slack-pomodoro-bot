@@ -27,10 +27,10 @@ const START_BUTTON = {
     attachment_type: "default",
     actions: [
         {
-            name: "start_pomodoro",
+            name: "pomodoro.start",
             text: "Start Pomodoro",
             type: "button",
-            value: "start_pomodoro",
+            value: "pomodoro.start",
             style: "primary"
         }
     ]
@@ -42,10 +42,10 @@ const STOP_BUTTON = {
     attachment_type: "default",
     actions: [
         {
-            name: "stop_pomodoro",
+            name: "pomodoro.stop",
             text: "Stop Pomodoro",
             type: "button",
-            value: "stop_pomodoro",
+            value: "pomodoro.stop",
             style: "danger"
         }
     ]
