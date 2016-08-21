@@ -1,7 +1,7 @@
 const oauth = require('./lib/oauth');
 
 exports.handler = function(event, context, callback) {
-    const code = event.code;
+    const code = event.params.querystring.code;
 
     if (!code) {
         callback(new Error('Failed to complete request'));
