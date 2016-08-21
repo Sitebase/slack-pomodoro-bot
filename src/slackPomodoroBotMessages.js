@@ -51,5 +51,6 @@ exports.handler = function(event, context, callback) {
     Promise.resolve()
         .then(() => Event.process(data, processOptions))
         .then(data => eventHandler.exec(data))
+        .then(result => callback(null, result))
         .catch(err => callback(err));
 };
