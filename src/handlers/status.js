@@ -4,22 +4,17 @@ const db = store('pomodoros', {
     primaryKey: 'user'
 });
 
-const message = _.template(
-`Hello <%= me.name %>!<%
-if (me.busy) {
-    %>You're working on your pomodoro :+1:<%
-} else {
-    %>You're not in Pomodoro mode :disappointed:<%
-} %>
+const message = (me, colleagues) =>
+`Hello${ me.name ? ` ${me.name}` : '' }! ${ me.busy ?
+    `You're working on your pomodoro :+1:` :
+    `You're not in Pomodoro mode :disappointed:`
+}${colleagues.length ?
+`
 
-<% if (colleagues.length) {
-    %>Some of your teammates are currently in Pomodoro mode:
-<% for(var i in colleagues) {
-        var colleague = colleagues[i];
-        %><@<%= colleague.id %>|<%= colleague.name %>> <%
-    }
-} %>`
-)
+Some of your colleagues are currently in Pomodoro mode: ${
+    colleagues.map(c => `<@${c.id}|${c.name}>`).join(' ')
+}` : ''
+}`;
 
 const START_BUTTON = {
     fallback: "Start a pomodoro by typing /pomo start",
@@ -67,7 +62,7 @@ module.exports.call = function(team, user) {
             })).value();
 
         return {
-            text: message({ me, colleagues }),
+            text: message(me, colleagues),
             attachments: [
                 busy ? STOP_BUTTON : START_BUTTON
             ]
