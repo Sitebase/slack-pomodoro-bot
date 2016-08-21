@@ -1,9 +1,9 @@
 const Command = require('lib/command');
 const env = require('env.json');
 
-const start = require('commands/start');
-const stop = require('commands/stop');
-const status = require('commands/status');
+const start = require('handlers/start').command;
+const stop = require('handlers/stop').command;
+const status = require('handlers/status').command;
 
 const processOptions = { token: env.SLACK_VERIFICATION_TOKEN || 'gIkuvaNzQIHg97ATvDxqgjtO' };
 const commandHandler = Command('start', start)

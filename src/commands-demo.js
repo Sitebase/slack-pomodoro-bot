@@ -1,7 +1,7 @@
 const Command = require('lib/command');
-const start = require('commands/start');
-const stop = require('commands/stop');
-const status = require('commands/status');
+const start = require('handlers/start');
+const stop = require('handlers/stop');
+const status = require('handlers/status');
 
 const slackToken = process.env.token || 'gIkuvaNzQIHg97ATvDxqgjtO';
 const processOptions = { token: slackToken };

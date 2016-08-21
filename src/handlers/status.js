@@ -5,7 +5,7 @@ const db = store('pomodoros', {
 });
 
 const message = _.template(
-`Hello <%= me.user_name %>!<%
+`Hello <%= me.name %>!<%
 if (me.busy) {
     %>You're working on your pomodoro :+1:<%
 } else {
@@ -16,7 +16,7 @@ if (me.busy) {
     %>Some of your teammates are currently in Pomodoro mode:
 <% for(var i in colleagues) {
         var colleague = colleagues[i];
-        %><@<%= colleague.id %>|<%= colleague.user_name %>> <%
+        %><@<%= colleague.id %>|<%= colleague.name %>> <%
     }
 } %>`
 )
@@ -51,12 +51,9 @@ const STOP_BUTTON = {
     ]
 };
 
-module.exports = function(command, data) {
-    const team = data.team_id;
-    const user = data.user_id;
-
-    return db.list(team).then(all => {
-        const meKey = `${team}.${user}`;
+module.exports.call = function(team, user) {
+    return db.list(team.id).then(all => {
+        const meKey = `${team.id}.${user.id}`;
 
         const me = _.find(all, v => v.user == meKey) || {};
         const busy = me.busy;
@@ -65,7 +62,7 @@ module.exports = function(command, data) {
             .filter(v => v.busy && v.user != meKey)
             .map(v => ({
                 id: v.user.split('.').pop(),
-                user_name: v.user_name,
+                name: v.name,
                 busy: v.busy
             })).value();
 
@@ -76,4 +73,12 @@ module.exports = function(command, data) {
             ]
         }
     });
+}
+
+module.exports.command = (command, data) => {
+    return module.exports.call({ id: data.team_id }, { id: data.user_id });
+}
+
+module.exports.action = (data) => {
+    return module.exports.call(data.team, data.user);
 }

@@ -1,8 +1,8 @@
 const Command = require('lib/command');
 
-const start = require('commands/start');
-const stop = require('commands/stop');
-const status = require('commands/status');
+const start = require('handlers/start');
+const stop = require('handlers/stop');
+const status = require('handlers/status');
 
 const processOptions = { token: process.env.SLACK_VERIFICATION_TOKEN || 'gIkuvaNzQIHg97ATvDxqgjtO' };
 const commandHandler = Command('start', start)
