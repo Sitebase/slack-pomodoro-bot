@@ -47,11 +47,8 @@ const eventHandler = Event(url_verification)
     .event(mention);
 
 exports.handler = function(event, context, callback) {
-    const data = event['body-json'];
-    console.log('event', event);
-    console.log('data', data);
     Promise.resolve()
-        .then(() => Event.process(data))
+        .then(() => Event.process(data, processOptions))
         .then(data => eventHandler.exec(data))
         .catch(err => callback(err));
 };
