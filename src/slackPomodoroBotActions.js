@@ -1,7 +1,8 @@
 var info = require('./package.json');
 
 exports.handler = function(event, context, callback) {
-    callback(null, {
-        description: 'This is the actions endpoint'
-    });
+    console.log('gert');
+    console.log(event);
+    console.log(JSON.stringify(event));
+    callback(null, event);
 };
